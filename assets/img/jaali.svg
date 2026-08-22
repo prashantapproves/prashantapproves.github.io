@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" fill="none">
+  <!-- Original jaali (pierced lattice screen) tile. Seamless both directions.
+       Circles overlap hard so the intersections form pointed ogee leaves. -->
+  <g stroke="#7A1F2B" stroke-width="1.1" opacity=".55">
+    <circle cx="0"  cy="0"  r="26"/>
+    <circle cx="48" cy="0"  r="26"/>
+    <circle cx="0"  cy="48" r="26"/>
+    <circle cx="48" cy="48" r="26"/>
+    <circle cx="24" cy="24" r="26"/>
+  </g>
+  <g fill="#7A1F2B" opacity=".5">
+    <circle cx="24" cy="24" r="2"/>
+    <circle cx="0"  cy="0"  r="2"/>
+    <circle cx="48" cy="0"  r="2"/>
+    <circle cx="0"  cy="48" r="2"/>
+    <circle cx="48" cy="48" r="2"/>
+  </g>
+</svg>
