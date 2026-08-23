@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 44" width="120" height="44" fill="none">
+  <!-- Mughal cusped-arch valance. Arches hang from the top rule.
+       Seamless repeat-x: arch springings sit exactly on x = 0, 60, 120. -->
+
+  <g stroke="#7A1F2B" stroke-linecap="round" stroke-linejoin="round">
+
+    <!-- arch 1, centred on x=30 -->
+    <path fill="#F7E2D8" stroke-width="1.7"
+      d="M60 0
+         A9.6 9.6 0 0 0 55.98 18
+         A9.6 9.6 0 0 0 45 31.18
+         A9.6 9.6 0 0 0 30 36
+         A9.6 9.6 0 0 0 15 31.18
+         A9.6 9.6 0 0 0 4.02 18
+         A9.6 9.6 0 0 0 0 0 Z"/>
+
+    <!-- arch 2, centred on x=90 -->
+    <path fill="#F7E2D8" stroke-width="1.7"
+      d="M120 0
+         A9.6 9.6 0 0 0 115.98 18
+         A9.6 9.6 0 0 0 105 31.18
+         A9.6 9.6 0 0 0 90 36
+         A9.6 9.6 0 0 0 75 31.18
+         A9.6 9.6 0 0 0 64.02 18
+         A9.6 9.6 0 0 0 60 0 Z"/>
+
+    <!-- beaded inner line, arch 1 -->
+    <path stroke-width="1.6" stroke-dasharray="0 4.4" opacity=".8"
+      d="M53.5 0
+         A7.7 7.7 0 0 0 50.1 14.6
+         A7.7 7.7 0 0 0 41.2 25.3
+         A7.7 7.7 0 0 0 30 29.2
+         A7.7 7.7 0 0 0 18.8 25.3
+         A7.7 7.7 0 0 0 9.9 14.6
+         A7.7 7.7 0 0 0 6.5 0"/>
+
+    <!-- beaded inner line, arch 2 -->
+    <path stroke-width="1.6" stroke-dasharray="0 4.4" opacity=".8"
+      d="M113.5 0
+         A7.7 7.7 0 0 0 110.1 14.6
+         A7.7 7.7 0 0 0 101.2 25.3
+         A7.7 7.7 0 0 0 90 29.2
+         A7.7 7.7 0 0 0 78.8 25.3
+         A7.7 7.7 0 0 0 69.9 14.6
+         A7.7 7.7 0 0 0 66.5 0"/>
+  </g>
+
+  <!-- lotus buta inside each arch -->
+  <g>
+    <g transform="translate(30 3)">
+      <path d="M0 17 C-6 13 -8.5 7 -7 2 C-4 4 -1.5 7.5 0 11 C1.5 7.5 4 4 7 2 C8.5 7 6 13 0 17 Z" fill="#E08A3C" opacity=".9"/>
+      <path d="M0 17 C-2.6 12 -2.6 5 0 0 C2.6 5 2.6 12 0 17 Z" fill="#7A1F2B"/>
+    </g>
+    <g transform="translate(90 3)">
+      <path d="M0 17 C-6 13 -8.5 7 -7 2 C-4 4 -1.5 7.5 0 11 C1.5 7.5 4 4 7 2 C8.5 7 6 13 0 17 Z" fill="#E08A3C" opacity=".9"/>
+      <path d="M0 17 C-2.6 12 -2.6 5 0 0 C2.6 5 2.6 12 0 17 Z" fill="#7A1F2B"/>
+    </g>
+  </g>
+
+  <!-- pendant drops hanging from the springings -->
+  <g fill="#7A1F2B">
+    <path d="M60 2 C64 7 64 12 60 15.5 C56 12 56 7 60 2 Z"/>
+    <circle cx="60" cy="19" r="2.1"/>
+    <path d="M0 2 C4 7 4 12 0 15.5 C-4 12 -4 7 0 2 Z"/>
+    <circle cx="0" cy="19" r="2.1"/>
+    <path d="M120 2 C124 7 124 12 120 15.5 C116 12 116 7 120 2 Z"/>
+    <circle cx="120" cy="19" r="2.1"/>
+  </g>
+</svg>

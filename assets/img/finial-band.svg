@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 34" width="48" height="34" fill="none">
+  <!-- Ogee finial band. Deep maroon field, gold finials.
+       Finials are deliberately narrower than the gaps between them —
+       when they get wider the maroon reads as slivers and the whole band
+       flattens into a picket fence.
+       Seamless repeat-x: finials centred on x = 0, 24, 48. -->
+
+  <rect width="48" height="34" fill="#571018"/>
+
+  <g>
+    <!-- outer gold silhouette: concave shoulders rising to a point -->
+    <g fill="#C9922F">
+      <path d="M18.4 34 L18.4 25.5 C18.4 21 22.4 19.5 24 10.5 C25.6 19.5 29.6 21 29.6 25.5 L29.6 34 Z"/>
+      <path d="M-5.6 34 L-5.6 25.5 C-5.6 21 -1.6 19.5 0 10.5 C1.6 19.5 5.6 21 5.6 25.5 L5.6 34 Z"/>
+      <path d="M42.4 34 L42.4 25.5 C42.4 21 46.4 19.5 48 10.5 C49.6 19.5 53.6 21 53.6 25.5 L53.6 34 Z"/>
+    </g>
+    <!-- butter core, leaving the deeper gold as a rim -->
+    <g fill="#F2C94C">
+      <path d="M20.3 34 L20.3 25.8 C20.3 22.4 23 21.2 24 14.5 C25 21.2 27.7 22.4 27.7 25.8 L27.7 34 Z"/>
+      <path d="M-3.7 34 L-3.7 25.8 C-3.7 22.4 -1 21.2 0 14.5 C1 21.2 3.7 22.4 3.7 25.8 L3.7 34 Z"/>
+      <path d="M44.3 34 L44.3 25.8 C44.3 22.4 47 21.2 48 14.5 C49 21.2 51.7 22.4 51.7 25.8 L51.7 34 Z"/>
+    </g>
+    <!-- gold bead sitting in each gap -->
+    <g fill="#C9922F">
+      <circle cx="12" cy="28.5" r="1.9"/>
+      <circle cx="36" cy="28.5" r="1.9"/>
+    </g>
+  </g>
+
+  <!-- gold hairlines top and bottom -->
+  <rect x="0" y="0"    width="48" height="1.6" fill="#C9922F"/>
+  <rect x="0" y="32.4" width="48" height="1.6" fill="#C9922F"/>
+</svg>

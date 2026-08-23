@@ -16,6 +16,9 @@
 
   /* accents — used sparingly */
   --butter:       #F2C94C; /* matches the Canva heading yellow */
+  --gold:         #C9922F;
+  --blush:        #F7E2D8; /* Jaipur pink, dialled right down */
+  --pink-city:    #C9645C;
   --marigold:     #E08A3C;
   --lilac:        #A97FC4;
   --jade:         #3F7D6E;
@@ -66,12 +69,32 @@ a:hover{ color:var(--maroon-deep); }
 
 :focus-visible{ outline:2.5px solid var(--maroon); outline-offset:3px; border-radius:2px; }
 
+/* The router moves focus to <main> on every route change so screen readers
+   land in the new content. That must not draw a ring around the whole page. */
+#main:focus, #main:focus-visible{ outline:none; }
+
 /* --------------------------------------------------------- ornament rules */
 
+/* Maroon bar with a gold hairline under it — the Jaipur block-print edge. */
 .rule--top{
-  height:7px;
-  background:var(--maroon);
+  height:8px;
+  background:
+    linear-gradient(var(--gold),var(--gold)) 0 100% / 100% 2px no-repeat,
+    var(--maroon);
 }
+
+/* Cusped-arch valance hanging under the masthead. */
+.rule--arch{
+  height:44px;
+  background:url("../img/arch-band.svg") repeat-x center top / auto 44px;
+}
+
+/* Ogee finials in gold on deep maroon — grounds the foot of the page. */
+.rule--finial{
+  height:26px;
+  background:url("../img/finial-band.svg") repeat-x center / auto 26px;
+}
+
 .rule--vine{
   height:30px;
   background:url("../img/border-vine.svg") repeat-x center / auto 30px;
@@ -92,14 +115,26 @@ a:hover{ color:var(--maroon-deep); }
 
 /* ------------------------------------------------------------- masthead */
 
-.masthead{ padding:22px 0 20px; }
+/* Jaali wash is baked into the SVG's own opacity, not a CSS layer —
+   an extra composited layer here caused a stray seam in Chromium. */
+.masthead{
+  padding:22px 0 20px;
+  background:url("../img/jaali-faint.svg") repeat center / 54px 54px, var(--cream-2);
+}
 .masthead__inner{ display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; }
 
 .logo{ display:inline-flex; align-items:center; gap:11px; text-decoration:none; color:var(--maroon); }
 .logo__mark{
   width:36px; height:36px; flex:none; display:grid; place-items:center;
   border:1.5px solid var(--maroon); border-radius:50%;
+  background:var(--cream);
+  position:relative;
   transition:transform .35s cubic-bezier(.2,.9,.3,1.4);
+}
+/* beaded inner ring, same language as the arch band */
+.logo__mark::after{
+  content:""; position:absolute; inset:3px; border-radius:50%;
+  border:1.4px dotted var(--maroon); opacity:.5;
 }
 .logo:hover .logo__mark{ transform:rotate(-12deg) scale(1.06); }
 .logo__type{
@@ -451,8 +486,28 @@ a:hover{ color:var(--maroon-deep); }
 /* ---------------------------------------------------------------- footer */
 
 .foot{ margin-top:clamp(56px,8vw,96px); }
-.foot__inner{ text-align:center; padding-block:clamp(34px,5vw,52px); }
-.foot__elephant{ width:112px; height:auto; margin:0 auto 20px; opacity:.9; }
+.foot__inner{ text-align:center; padding-block:clamp(34px,5vw,52px); position:relative; }
+
+/* Hawa Mahal facade behind the elephant — Jaipur, quietly. */
+.foot__jharokha{
+  position:relative; width:min(420px,80%); margin:0 auto 22px;
+  padding-top:18px;
+}
+.foot__jharokha::before{
+  content:""; position:absolute; inset:auto 0 0; height:112px;
+  background:url("../img/hawa-mahal.svg") repeat-x center bottom / auto 112px;
+  opacity:.17; pointer-events:none;
+}
+/* Feather the facade into the page so it has no hard cut edges.
+   Done with a cream gradient rather than mask-image — no support caveats. */
+.foot__jharokha::after{
+  content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
+  background:linear-gradient(90deg,
+    var(--cream), rgba(250,244,232,0) 30%,
+    rgba(250,244,232,0) 70%, var(--cream));
+}
+.foot__elephant{ z-index:2; }
+.foot__elephant{ position:relative; width:112px; height:auto; margin:0 auto; display:block; opacity:.92; }
 .foot__line{ margin:0 auto 20px; max-width:44ch; font-size:15px; color:var(--ink-soft); }
 .foot__line strong{ color:var(--maroon); }
 .foot__meta{
@@ -477,9 +532,14 @@ a:hover{ color:var(--maroon-deep); }
   .nav, .filters, .back, .btn, .foot__meta, .callout, .skip-link,
   .place__shot, .hero__kicker, .city__meta{ display:none !important; }
 
-  .masthead{ padding:6px 0 4px; }
+  .masthead{ padding:6px 0 4px; background:none; }
+  .masthead::before{ display:none; }
+  .rule--arch{ height:19px; background-size:auto 19px; margin-bottom:14px; opacity:.85; }
+  .rule--finial{ display:none !important; }
   .rule--vine{ height:16px; background-size:auto 16px; margin-bottom:14px; opacity:.8; }
   .foot .rule--vine{ margin:14px 0 0; }
+  .foot__jharokha{ width:auto; padding-top:0; margin-bottom:8px; }
+  .foot__jharokha::before{ display:none !important; }
   .logo__type{ font-size:15pt; }
   .logo__type em{ -webkit-text-fill-color:var(--maroon); color:var(--maroon); background:none; }
 
@@ -496,13 +556,23 @@ a:hover{ color:var(--maroon-deep); }
   .section-head p{ font-size:9pt; }
   .paisley-div{ margin:16px 0 10px; }
 
-  /* CSS columns flow across page breaks far better than grid does */
-  .places{ display:block; column-count:2; column-gap:10px; column-fill:auto; }
+  /* Two-up via inline-block, not grid and not CSS columns.
+     Grid fragments badly across page breaks, and Chromium ignores
+     column-fill:auto in paged media — it balances each fragment and
+     leaves half-empty pages. Inline-block flows line by line, and
+     line boxes break across pages correctly. */
+  /* Each row of cards is a line box, so the default orphans/widows of 2
+     would shunt the whole block to the next page whenever only one row
+     fits. One row on a page is fine here. */
+  .places{ display:block; font-size:0; orphans:1; widows:1; }
   .place{
-    break-inside:avoid; -webkit-column-break-inside:avoid;
-    display:block; width:100%; margin:0 0 10px;
+    break-inside:avoid; page-break-inside:avoid;
+    display:inline-block; vertical-align:top;
+    width:49%; margin:0 2% 10px 0;
+    font-size:10.4pt;
     border:1px solid #B09A9C; border-radius:3px;
   }
+  .place:nth-child(2n){ margin-right:0; }
   .place__body{ display:block; padding:9px 10px; }
   .place__body > * + *{ margin-top:6px; }
   .place__name{ font-size:12.4pt; }
