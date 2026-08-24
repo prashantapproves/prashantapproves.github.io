@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" fill="none">
+  <!-- A domed gateway with two flanking chhatris. Reads "the thing you go and
+       look at" — sightseeing, without naming a specific monument. -->
+  <g stroke="#7A1F2B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- main dome -->
+    <path d="M40 62 C40 44 48 34 60 34 C72 34 80 44 80 62"/>
+    <!-- dome neck + finial -->
+    <path d="M60 34 L60 26" stroke-width="1.6"/>
+    <path d="M56 26 C58 22 62 22 64 26" stroke-width="1.6"/>
+    <path d="M60 22 L60 16" stroke-width="1.4"/>
+    <circle cx="60" cy="13" r="2.6" stroke-width="1.4"/>
+    <!-- drum -->
+    <path d="M40 62 L80 62"/>
+    <path d="M43 68 L77 68" stroke-width="1.3" opacity=".75"/>
+    <!-- the arched gateway below -->
+    <path d="M44 104 L44 68 M76 104 L76 68"/>
+    <path d="M52 104 L52 84 C52 78 56 74 60 74 C64 74 68 78 68 84 L68 104"
+          stroke-width="1.5"/>
+    <!-- flanking chhatris -->
+    <path d="M18 104 L18 84 M34 104 L34 84"/>
+    <path d="M16 84 C16 76 20 72 26 72 C32 72 36 76 36 84"/>
+    <path d="M26 72 L26 66" stroke-width="1.3"/>
+    <path d="M86 104 L86 84 M102 104 L102 84"/>
+    <path d="M84 84 C84 76 88 72 94 72 C100 72 104 76 104 84"/>
+    <path d="M94 72 L94 66" stroke-width="1.3"/>
+    <!-- ground line -->
+    <path d="M10 104 L110 104"/>
+    <path d="M14 110 L106 110" stroke-width="1.4" opacity=".65"/>
+  </g>
+</svg>

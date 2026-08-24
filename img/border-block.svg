@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 16" width="32" height="16" fill="none">
+  <!-- The page border. A Jaipur block-print edge: maroon ground, gold temple
+       triangles, a gold thread along the inner side.
+
+       Deliberately simple. The two ornaments that used to bracket the footer —
+       a cusped arcade and a band of ogee finials — were each detailed enough to
+       be a picture in their own right, and at the edge of a page that is noise.
+       A repeating triangle is what an actual block-printed selvedge does: one
+       shape, cut once, stamped along the edge.
+
+       Seamless repeat-x: triangle apexes sit on x = 8 and x = 24, so the tile
+       joins mid-gap and the rhythm never stutters at the seam. -->
+
+  <rect width="32" height="16" fill="#7A1F2B"/>
+
+  <!-- gold thread on the inner edge (the side facing the content) -->
+  <rect y="14" width="32" height="1.6" fill="#C9922F"/>
+
+  <!-- temple triangles, apex up -->
+  <g fill="#C9922F">
+    <path d="M8 3.4 L13.2 12.2 L2.8 12.2 Z"/>
+    <path d="M24 3.4 L29.2 12.2 L18.8 12.2 Z"/>
+  </g>
+
+  <!-- a butter dot in the gap between each pair — the small bright note that
+       stops the row reading as a plain sawtooth -->
+  <g fill="#F2C94C">
+    <circle cx="16" cy="9.6" r="1.5"/>
+    <circle cx="0"  cy="9.6" r="1.5"/>
+    <circle cx="32" cy="9.6" r="1.5"/>
+  </g>
+</svg>

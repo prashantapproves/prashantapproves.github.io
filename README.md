@@ -1,136 +1,251 @@
 # prashantapproves.com
 
-Static site. No build step, no framework, no dependencies. Open `index.html` in a
-browser and it works. Push it to GitHub and it's live.
+Static site. No build step, no framework, no dependencies, nothing to install.
+Open `index.html` in a browser and it works. Push it to GitHub and it's live.
 
 ---
 
-## Editing content
+## The one thing to understand
 
-**You only ever edit one file: `assets/js/data.js`.**
+**There is one list of things: `POSTS`, in `assets/js/data.js`.**
 
-Everything else is plumbing. The file is heavily commented — open it and it will
-tell you what each field does.
+Every page on this site — a city guide, a restaurant review, a piece about
+cycling — is one entry in that list. They differ only by `cat`:
 
-### The TODO safety net
+| `cat`      | Where it shows up |
+|------------|-------------------|
+| `'travel'` | Travel section, Travel dropdown, homepage |
+| `'food'`   | Food section |
+| `'life'`   | Life section |
 
-Any string you write starting with `TODO:` renders on the page **highlighted in
-yellow**, and the city gets a "Draft" banner at the top. This is deliberate: it
-makes it very hard to accidentally publish a place you haven't been or a price
-you haven't paid.
+The section pages, the homepage, the nav menu and the URLs all build themselves
+from that list. **You never register a page anywhere.** You add an entry, it
+exists, and it is linked from every place it belongs.
 
-Delete every `TODO:` in a city before you set `status: 'live'`.
+You only ever edit `assets/js/data.js`. Everything else is plumbing, and
+`app.js` says so in its first line.
 
-### Adding a city
+---
 
-Copy any block in `data.js`, change the `slug`, fill it in. That's the whole job.
-The city picker on the homepage updates itself.
+## Adding a page
+
+1. Open `assets/js/data.js`, find `POSTS`.
+2. Copy any existing entry.
+3. Change `slug` and fill it in.
+
+That's it. Its URL is now `prashantapproves.com/#/your-slug` — permanent,
+shareable, safe to put in your Instagram bio.
 
 ```js
 {
-  slug: 'lisbon',            // becomes prashantapproves.com/#/lisbon
-  name: 'Lisbon',
-  country: 'Portugal',
-  status: 'live',            // 'live' = full guide | 'soon' = card only
-  verdict: 'yes',            // 'yes' WORTH IT | 'mixed' MIXED | 'no' SKIP
-  tier: 2,                   // 1,2,3 -> £ ££ £££
-  ...
+  slug:   'lisbon',              // the URL. Never change it once published.
+  cat:    'travel',              // travel | food | life
+  status: 'live',                // 'live' shows it; 'soon' shows a greyed card
+  title:  'Lisbon',
+  where:  'Portugal',
+  group:  'Europe',              // optional heading it sits under
+  date:   'May 2026',
+  meta:   '4 days · 3 nights',
+  verdict:'yes',                 // yes | mixed | no
+  tier:   2,                     // 1 = £, 2 = ££, 3 = £££
+  cover:  'assets/photos/x.jpg', // optional
+  dek:    'One sentence with the verdict in it.',
+  body:   [ /* blocks — see below */ ]
 }
 ```
 
-### Adding photos
+### `status`
 
-Drop your images into `assets/photos/`, then point at them:
+- `'live'` — a real, clickable page.
+- `'soon'` — shows as a greyed-out card reading "planned". Useful for parking
+  the twelve places you've been but haven't written up yet, so the site reads
+  like a life rather than like one page.
+
+### `group`
+
+Optional. Posts sharing a `group` string cluster under one heading, and **the
+order you write them in `data.js` is the order on the page.** No sorting
+surprises. Within a group, live posts float above planned ones.
+
+---
+
+## Augmenting a page
+
+A post's `body` is a list of **blocks**, rendered top to bottom in the order you
+write them. Add a block and it appears. Move it and it moves. Delete it and it's
+gone. You never touch a template.
 
 ```js
-photo: 'assets/photos/lisbon-cafe-elba.jpg'
+{ h:     'A heading' }                        // a heading on its own
+{ p:     'A paragraph.' }                     // words
+{ note:  'Something worth pulling out.' }     // boxed, maroon, hard to miss
+{ quote: 'One sentence.', who:'Paris' }       // BIG. your voice, set large
+{ list:  ['one','two'] }                      // a plain list
+{ photo: 'assets/photos/x.jpg', caption:'' }  // one photo with a caption
+{ strip: ['a.jpg','b.jpg','c.jpg'] }          // a row of photos
+{ places:[ ... ], filters:true }              // verdict cards + filter chips
+{ days:  [ ... ] }                            // an hour-by-hour itinerary
+{ costs: { ... } }                            // the money table
+{ links: [{label:'', url:''}] }               // read-more links
 ```
 
-Leave `photo: ''` and you get a patterned jaali placeholder instead — which looks
-deliberate, not broken, so an unphotographed place is still shippable.
+Every block also takes an optional `title:'...'`, printed above it as a section
+heading. Paris uses all of them — read it as the worked example.
 
-Keep images under ~400KB. Roughly 1600px on the long edge is plenty.
+`quote` is the one to use sparingly. It sets a single sentence at headline size
+in the serif, and it is the only place on a post page where your writing is
+bigger than the pictures. Once or twice per guide. Any more and it stops
+reading as emphasis and starts reading as decoration.
 
----
+The verdict at the top of every post page — the plum band under the title — is
+not a block and you do not write it. It is the post's own `dek`, which used to
+sit small and grey. Change `dek`, the big verdict changes.
 
-## Deploying to GitHub Pages
+### The `places` block
 
-1. Create a repo. Public. Any name.
-2. Put the contents of this folder at the **root** of the repo (not inside a
-   subfolder) and push to `main`.
-3. Repo → **Settings → Pages** → Source: *Deploy from a branch* → `main` / `root`.
-4. Wait about a minute. It'll be live at `yourname.github.io/reponame`.
+The heart of the site. Each place is a card with its own verdict stamp, and the
+chips above filter them live.
 
-## Pointing your domain at it
+```js
+{
+  title:'Every place, judged',
+  filters:true,
+  places:[
+    { name:'The Eiffel Tower', area:'Champ de Mars', type:'do',
+      verdict:'no', tier:2, photo:'assets/photos/x.jpg',
+      why:'Why I feel that way.',
+      do:'The one thing worth doing.',
+      skip:'The bit to skip.',
+      cost:'£29', tags:['booked ahead'] }
+  ]
+}
+```
 
-`CNAME` in this folder already contains `prashantapproves.com`. **Check that's
-actually the domain you bought** — if it's different, edit that file first.
-
-At your domain registrar, add these DNS records:
-
-| Type  | Name  | Value                    |
-|-------|-------|--------------------------|
-| A     | `@`   | `185.199.108.153`        |
-| A     | `@`   | `185.199.109.153`        |
-| A     | `@`   | `185.199.110.153`        |
-| A     | `@`   | `185.199.111.153`        |
-| CNAME | `www` | `yourname.github.io.`    |
-
-Then in **Settings → Pages → Custom domain**, enter `prashantapproves.com` and
-tick **Enforce HTTPS** once the certificate finishes provisioning (can take up to
-24 hours — this is normal, don't panic).
-
----
-
-## The PDF
-
-There is no separate PDF file to maintain. Every city guide has a **Save as PDF**
-button that uses the browser's print dialogue, and there's a dedicated print
-stylesheet that strips the navigation, filters and photos, and reflows the place
-cards into two clean columns.
-
-The upshot: the PDF can never go out of date, because it *is* the page.
+`type` is `stay`, `eat` or `do`. It picks the fallback illustration when there's
+no photo, and it drives the filter chips.
 
 ---
 
-## Notes on the design
+## The TODO safety net
 
-- **Colours and fonts** are all CSS variables at the top of `assets/css/style.css`.
-  Change them there once and the whole site follows.
-- **The motifs** (`assets/img/*.svg`) were all drawn from scratch for this site.
-  They're original vector work, not stock, so there's no licence attached and you
-  can use them anywhere, including in Canva:
+**Any string starting with `TODO:` renders in a butter wash with a gold
+underline, and the page gets a "Draft" banner at the top.**
 
-  | file | what it is | where it sits |
-  |---|---|---|
-  | `arch-band.svg` | Mughal cusped-arch valance, blush field, marigold tulip butas | hangs under the masthead |
-  | `finial-band.svg` | gold ogee finials on deep maroon | grounds the very bottom of the page |
-  | `hawa-mahal.svg` | Hawa Mahal jharokha facade, chhatri domes over pointed windows | faint backdrop behind the footer elephant |
-  | `jaali.svg` / `jaali-faint.svg` | jaali lattice; the faint copy has its opacity baked in | masthead wash |
-  | `border-vine.svg` | beaded vine | rule above the footer |
-  | `paisley.svg` | paisley | section dividers |
-  | `elephant.svg` | caparisoned elephant | footer |
+This is deliberate, and it's the most important thing in the codebase. The whole
+account rests on you saying when something isn't worth it, which only works if
+every verdict on the site is one you actually hold. It should be hard to
+accidentally publish a place you didn't go to or a price you didn't pay.
 
-  Every band is a **seamless repeat-x tile** — its left and right edges line up, so
-  changing the CSS height rescales it without ever showing a seam.
-- **Jaipur is the reference.** Pink City blush (`--blush`) fills the arch valance,
-  gold (`--gold`) is the hairline and finial colour, and the Hawa Mahal sits in the
-  footer. The cream-and-maroon base is untouched underneath all of it.
-- **`404.html`** is a copy of `index.html`, so any bad URL still loads the site
-  and lands on a proper "not here yet" page.
+Clear every `TODO:` before you set a post to `status:'live'`.
+
+Currently left as TODO on purpose, because they're your opinions and nobody else
+can write them:
+
+- Gymkhana and The Ritz — every verdict field
+- Both Life posts
+- Paris — the itinerary and most of the cost table
+
+---
+
+## Renaming or adding a section
+
+At the top of `data.js`:
+
+```js
+const NAV = [
+  { slug:'travel', label:'Travel', title:'Travel', kicker:'…', dek:'…' },
+  { slug:'food',   label:'Food',   title:'Food',   kicker:'…', dek:'…' },
+  { slug:'life',   label:'Life',   title:'Life',   kicker:'…', dek:'…' }
+];
+```
+
+- **Rename a section:** change `label`. One word. Nothing else moves.
+- **Add a fourth:** add a line, then tag posts with that `cat`.
+- **Never change `slug`** once you've published — it's both the URL and the tag.
+
+On the naming question, since you asked: **"Blog"** describes a format, tells a
+visitor nothing about what's inside, and quietly promises you'll post every week
+forever. **"Guide"** describes a promise, but reads odd as a menu item and boxes
+you out of writing anything that isn't a guide. **"Travel"** describes what
+someone *wants* — it's how people search, it sits beside Food and Life without
+strain, and it obliges you to nothing. That's why it's the default.
+
+A section only grows a dropdown menu once it has five or more posts. That
+threshold lives in `app.js` as `DROP_FROM` and flips over on its own as the site
+fills up. Nothing to remember.
+
+---
+
+## Photos
+
+All in `assets/photos/`. They're named by **what is in them**, not where they
+were taken, because only five were identifiable with certainty. Those five are
+already placed (two Paris, three Scotland).
+
+The other fifteen sit in `GALLERY` with blank `place` labels, so they appear as
+pictures with no caption rather than as a guess. There's a manifest at the top
+of `data.js` describing each one.
+
+To place a photo, paste its filename into a post's `cover`, or into a
+`{ strip:[...] }` block, or into a place card's `photo`. Filling in the `place`
+labels in `GALLERY` is about five minutes of work and makes the photo wall on
+the homepage read properly.
+
+**Missing photos never break the layout.** Every image on the site goes through
+one primitive, so an absent or broken file degrades to a drawn line-art motif
+over a jaali wash — a thali for `eat`, a bed for `stay`, an arch for `do`.
+
+---
+
+## Printing / PDF
+
+Every page prints clean: navigation, buttons, filters and photos are stripped,
+the text reflows to a readable measure, and links keep their URLs. Readers hit
+Cmd/Ctrl-P and choose "Save as PDF" — or use the button at the foot of each
+guide.
+
+The PDF is the page itself, so it can never go out of date. There's nothing to
+regenerate and no second copy to keep in sync.
+
+---
+
+## Deploying
+
+The whole site is this folder.
+
+1. Push it to a GitHub repo.
+2. Settings → Pages → deploy from branch `main`, folder `/ (root)`.
+3. Settings → Pages → custom domain → `prashantapproves.com`.
+4. At your registrar, point the apex `A` records at GitHub's four IPs and add a
+   `CNAME` for `www` → `<username>.github.io`.
+
+Already in place for you:
+
+- `CNAME` — holds the domain. **Check the spelling matches the domain you
+  actually bought before the first push.**
+- `.nojekyll` — stops GitHub trying to build the folder as a Jekyll blog.
+- `404.html` — a byte-identical copy of `index.html`. If you ever edit
+  `index.html`, run `cp index.html 404.html`. That's the only housekeeping this
+  site has.
+
+URLs use a `#` (`/#/paris`) on purpose. Deep links survive GitHub Pages without
+any redirect rules, so a link you put in your bio today still resolves in two
+years.
 
 ---
 
 ## File map
 
 ```
-index.html            page shell
-404.html              copy of the above
-CNAME                 your custom domain
-.nojekyll             stops GitHub reprocessing the folder
-assets/css/style.css  design system + print stylesheet
-assets/js/data.js     ← THE ONLY FILE YOU EDIT
-assets/js/app.js      router + renderer
-assets/img/           the hand-drawn motifs
-assets/photos/        your photos go here
+index.html            page shell. Rarely touched.
+404.html              copy of index.html. Keep in sync.
+CNAME                 your domain.
+.nojekyll             tells GitHub not to build this.
+assets/
+  css/style.css       the whole design system. One file.
+  js/data.js          ← THE ONLY FILE YOU EDIT
+  js/app.js           the renderer. Says "you do not need to edit this."
+  img/                SVG ornament: the block-print page border, the Ganesha
+                      coin at the top, jaali, paisley, elephant, motifs.
+  photos/             your twenty photographs.
 ```

@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 84 84" width="84" height="84" fill="none"
+     role="img" aria-label="A small Ganesha medallion">
+
+  <!-- A friendly, heavily stylised Ganesha, drawn to sit in a coin at the head
+       of the page. Round, soft and small on purpose: this is the mark you put
+       at the top of a thing before you begin it, not an illustration asking to
+       be studied.
+
+       Three rules govern the drawing, all of them forced by the fact that it
+       renders at 54px:
+
+       1. Everything is circles, ellipses and thick stroked paths. Detail finer
+          than about 1.5 units in this viewBox turns to mush.
+
+       2. The body is drawn before the trunk, so the trunk hangs in front of the
+          chest the way a trunk actually does. Drawn the other way round the
+          trunk stops at the shoulder line and reads as a smile.
+
+       3. Every cream shape that overlaps another cream shape gets a maroon
+          keyline underneath it. Without that the trunk, the tusks and the body
+          are all the same colour touching each other, and the whole thing
+          collapses into one pale blob — which is exactly what happened on the
+          first two attempts. -->
+
+  <!-- the coin -->
+  <circle cx="42" cy="42" r="41" fill="#7A1F2B"/>
+  <circle cx="42" cy="42" r="38" fill="none" stroke="#C9922F" stroke-width="1.6"/>
+  <circle cx="42" cy="42" r="34.5" fill="none" stroke="#C9922F" stroke-width="0.9" opacity=".55"/>
+
+  <g fill="#F7E2D8">
+
+    <!-- crown / mukut: a band and three points -->
+    <path d="M42 8.5 L45.4 15 L38.6 15 Z"/>
+    <path d="M33 11.5 L37.2 17.2 L30.4 18.4 Z"/>
+    <path d="M51 11.5 L53.6 18.4 L46.8 17.2 Z"/>
+    <path d="M29.5 17.4 Q42 13.2 54.5 17.4 L56 21.2 Q42 17.4 28 21.2 Z"/>
+
+    <!-- shoulders, low and wide, drawn first -->
+    <path d="M8 84 C10 65 25 53.5 42 53.5 C59 53.5 74 65 76 84 Z"
+          stroke="#7A1F2B" stroke-width="1.6"/>
+
+    <!-- ears -->
+    <ellipse cx="23.5" cy="35" rx="8.6" ry="11"/>
+    <ellipse cx="60.5" cy="35" rx="8.6" ry="11"/>
+
+    <!-- head -->
+    <circle cx="42" cy="33.5" r="14.5"/>
+
+    <!-- tusks, keylined so they read against the body behind them. The right
+         one is faded: Ganesha famously broke one off to write with, and the
+         asymmetry is the whole point of the face. -->
+    <path d="M32.6 42 L28.8 51 L35.4 45.6 Z" stroke="#7A1F2B" stroke-width="1.5"/>
+    <path d="M51.4 42 L55.2 51 L48.6 45.6 Z" stroke="#7A1F2B" stroke-width="1.5" opacity=".45"/>
+  </g>
+
+  <!-- the trunk: down the middle, a curl to its left, a hook back up. Drawn as
+       a wide maroon stroke with a narrower cream stroke on top, which gives it
+       an even keyline all the way round the curve for free. -->
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M42 40 C42 48.5 39.5 53 35.6 56.8 C31.8 60.4 33.4 67.5 38.8 67.5
+             C42.8 67.5 45 64.6 44.2 61.2"
+          stroke="#7A1F2B" stroke-width="9.6"/>
+    <path d="M42 40 C42 48.5 39.5 53 35.6 56.8 C31.8 60.4 33.4 67.5 38.8 67.5
+             C42.8 67.5 45 64.6 44.2 61.2"
+          stroke="#F7E2D8" stroke-width="6.4"/>
+  </g>
+
+  <!-- ear whorls -->
+  <g fill="none" stroke="#7A1F2B" stroke-width="1.6" opacity=".5">
+    <path d="M22 31.5 C26.4 32.5 26.9 38 23.6 40"/>
+    <path d="M62 31.5 C57.6 32.5 57.1 38 60.4 40"/>
+  </g>
+
+  <!-- eyes, closed and content — a curve reads kinder than a dot -->
+  <g fill="none" stroke="#7A1F2B" stroke-width="2.1" stroke-linecap="round">
+    <path d="M34 32 Q37.2 29.4 40.4 32"/>
+    <path d="M43.6 32 Q46.8 29.4 50 32"/>
+  </g>
+
+  <!-- tilak on the forehead, jewel in the crown -->
+  <circle cx="42" cy="24.6" r="2.1" fill="#F2C94C"/>
+  <circle cx="42" cy="19.6" r="1.9" fill="#F2C94C"/>
+</svg>
